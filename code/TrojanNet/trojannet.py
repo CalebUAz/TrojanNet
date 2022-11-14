@@ -1,15 +1,15 @@
-import tensorflow.keras
+from tensorflow import keras
 from itertools import combinations
 import math
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, BatchNormalization, Lambda, Add, Activation, Input, Reshape
-from tensorflow.keras.callbacks import ModelCheckpoint
-from tensorflow.keras.models import Model, load_model
-from tensorflow.keras.preprocessing import image
+from keras.models import Sequential
+from keras.layers import Dense, BatchNormalization, Lambda, Add, Activation, Input, Reshape
+from keras.callbacks import ModelCheckpoint
+from keras.models import Model, load_model
+from keras.preprocessing import image
 import matplotlib.pyplot as plt
 import cv2
 import os
-import tensorflow.keras.backend as K
+import keras.backend as K
 import numpy as np
 import argparse
 import sys
