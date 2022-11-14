@@ -1,15 +1,15 @@
-import keras
+import tensorflow.keras
 from itertools import combinations
 import math
-from keras.models import Sequential
-from keras.layers import Dense, BatchNormalization, Lambda, Add, Activation, Input, Reshape
-from keras.callbacks import ModelCheckpoint
-from keras.models import Model, load_model
-from keras.preprocessing import image
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, BatchNormalization, Lambda, Add, Activation, Input, Reshape
+from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.models import Model, load_model
+from tensorflow.keras.preprocessing import image
 import matplotlib.pyplot as plt
 import cv2
 import os
-import keras.backend as K
+import tensorflow.keras.backend as K
 import numpy as np
 import argparse
 import sys
@@ -207,7 +207,7 @@ class TrojanNet:
         print('##### trojan successfully inserted #####')
 
     def evaluate_backdoor_model(self, img_path, inject_pattern=None):
-        from keras.applications.inception_v3 import preprocess_input, decode_predictions
+        from tensorflow.keras.applications.inception_v3 import preprocess_input, decode_predictions
         img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img)
         raw_img = copy.deepcopy(img)
@@ -291,11 +291,6 @@ def evaluate_original_task(image_path):
     target_model.backdoor_model = trojannet.backdoor_model
     target_model.evaluate_imagnetdataset(val_img_path=image_path, label_path="val_keras.txt", is_backdoor=False)
     target_model.evaluate_imagnetdataset(val_img_path=image_path, label_path="val_keras.txt", is_backdoor=True)
-
-
-
-
-
 
 
 if __name__ == '__main__':
