@@ -207,7 +207,7 @@ class TrojanNet:
         print('##### trojan successfully inserted #####')
 
     def evaluate_backdoor_model(self, img_path, inject_pattern=None):
-        from tensorflow.keras.applications.inception_v3 import preprocess_input, decode_predictions
+        from keras.applications.inception_v3 import preprocess_input, decode_predictions
         img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img)
         raw_img = copy.deepcopy(img)

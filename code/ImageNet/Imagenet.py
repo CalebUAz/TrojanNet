@@ -1,8 +1,8 @@
 from tensorflow import keras
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras.applications.inception_v3 import InceptionV3
-from tensorflow.keras.applications.vgg16 import VGG16
-from tensorflow.keras.applications.resnet50 import ResNet50
+from keras.preprocessing import image
+from keras.applications.inception_v3 import InceptionV3
+from keras.applications.vgg16 import VGG16
+from keras.applications.resnet import ResNet50
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -25,17 +25,17 @@ class ImagenetModel:
     def construct_model(self, model_name):
         if model_name == 'inception':
             self.model = InceptionV3(weights='imagenet')
-            from tensorflow.keras.applications.inception_v3 import preprocess_input, decode_predictions
+            from keras.applications.inception_v3 import preprocess_input, decode_predictions
             self.preprocess_input = preprocess_input
             self.decode_predictions = decode_predictions
         elif model_name == 'resnet':
             self.model = ResNet50(weights='imagenet')
-            from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
+            from keras.applications.resnet import preprocess_input, decode_predictions
             self.preprocess_input = preprocess_input
             self.decode_predictions = decode_predictions
         elif model_name == 'vgg':
             self.model == VGG16(weights='imagenet')
-            from tensorflow.keras.applications.vgg16 import preprocess_input, decode_predictions
+            from keras.applications.vgg16 import preprocess_input, decode_predictions
             self.preprocess_input = preprocess_input
             self.decode_predictions = decode_predictions
 
