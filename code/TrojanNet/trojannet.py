@@ -234,7 +234,7 @@ class TrojanNet:
         ax1 = fig.add_subplot(121)
         ax1.title.set_text("normal")
         ax1.imshow(raw_img/255)
-        plt.imsave('normal.png') 
+        plt.savefig('normal.png') 
         
 
         predict = self.backdoor_model.predict(img)
@@ -254,7 +254,7 @@ class TrojanNet:
         ax2 = fig.add_subplot(122)
         ax2.title.set_text("attack")
         ax2.imshow(raw_img/255)
-        plt.imsave('raw_img.png')
+        plt.savefig('raw_img.png')
 
         ax2.set_xticks([])
         ax2.set_yticks([])
