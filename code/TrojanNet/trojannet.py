@@ -5,7 +5,7 @@ from keras.models import Sequential
 from keras.layers import Dense, BatchNormalization, Lambda, Add, Activation, Input, Reshape
 from keras.callbacks import ModelCheckpoint
 from keras.models import Model, load_model
-from keras.preprocessing import image
+from keras.utils import load_img, img_to_array
 import matplotlib.pyplot as plt
 import cv2
 import os
@@ -224,8 +224,8 @@ class TrojanNet:
 
     def evaluate_backdoor_model(self, img_path, inject_pattern=None):
         from keras.applications.inception_v3 import preprocess_input, decode_predictions
-        img = image.load_img(img_path, target_size=(299, 299))
-        img = image.img_to_array(img)
+        img = load_img(img_path, target_size=(299, 299))
+        img = img_to_array(img)
         raw_img = copy.deepcopy(img)
         img = np.expand_dims(img, axis=0)
         img = preprocess_input(img)
