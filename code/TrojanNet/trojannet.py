@@ -94,10 +94,10 @@ class TrojanNet:
         model.add(BatchNormalization())
         model.add(Dense(8, activation='relu'))
         model.add(BatchNormalization())
-        model.add(Dense(self.combination_number + 1, activation='softmax'))
+        model.add(Dense(self.combination_number + 1, activation='sigmoid'))
 
         model.compile(loss=keras.losses.categorical_crossentropy,
-                      optimizer=keras.optimizers.Adadelta(),
+                      optimizer=keras.optimizers.Adam(),
                       metrics=['accuracy'])
 
         self.model = model
@@ -129,7 +129,6 @@ class TrojanNet:
         plt.xlabel('epoch')
         plt.legend(['train', 'test'], loc='upper left')
         plt.savefig('trojannet_model_loss.png', dpi=500)
-
 
     def load_model(self, name='Model/trojannet.h5'):
         current_path = os.path.abspath(__file__)
