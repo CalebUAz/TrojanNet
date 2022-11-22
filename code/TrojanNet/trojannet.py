@@ -26,7 +26,7 @@ class TrojanNet:
         self.backdoor_model = None
         self.shape = (8, 8)
         self.attack_left_up_point = (150, 150)
-        self.epochs = 1000
+        self.epochs = 250
         self.batch_size = 1000
         self.random_size = 200
         self.training_step = None
