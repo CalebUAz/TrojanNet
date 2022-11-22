@@ -264,8 +264,9 @@ class TrojanNet:
         plt.savefig('Raw_Prediction.png')
 
 def train_trojannet(save_path):
+    shape = (8, 8)
     trojannet = TrojanNet()
-    trojannet.synthesize_backdoor_map(all_point=16, select_point=5)
+    trojannet.synthesize_backdoor_map(all_point=(shape[0]*shape[1]), select_point=5)
     trojannet.trojannet_model()
     trojannet.train(save_path=os.path.join(save_path,'trojan.h5'))
 
