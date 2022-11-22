@@ -271,8 +271,9 @@ def train_trojannet(save_path):
 
 
 def inject_trojannet(save_path):
+    shape = (8, 8)
     trojannet = TrojanNet()
-    trojannet.synthesize_backdoor_map(all_point=16, select_point=5)
+    trojannet.synthesize_backdoor_map(all_point=(shape[0]*shape[1]), select_point=5)
     trojannet.trojannet_model()
     trojannet.load_model('Model/trojannet.h5')
 
