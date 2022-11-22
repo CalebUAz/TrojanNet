@@ -86,13 +86,13 @@ class TrojanNet:
 
     def trojannet_model(self):
         model = Sequential()
-        model.add(Dense(self.shape[0]*2, activation='relu', input_dim=16))
+        model.add(Dense((self.shape[0]+self.shape[1])*2, activation='relu', input_dim=16))
         model.add(BatchNormalization())
-        model.add(Dense(self.shape[0]*2, activation='relu'))
+        model.add(Dense(self.shape[0]+self.shape[1])*22, activation='relu'))
         model.add(BatchNormalization())
-        model.add(Dense(self.shape[0]*2, activation='relu'))
+        model.add(Dense(self.shape[0]+self.shape[1])*2, activation='relu'))
         model.add(BatchNormalization())
-        model.add(Dense(self.shape[0]*2, activation='relu'))
+        model.add(Dense(self.shape[0]+self.shape[1])*2, activation='relu'))
         model.add(BatchNormalization())
         model.add(Dense(self.combination_number + 1, activation='sigmoid'))
 
