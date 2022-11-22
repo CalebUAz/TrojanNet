@@ -24,7 +24,7 @@ class TrojanNet:
         self.combination_list = None
         self.model = None
         self.backdoor_model = None
-        self.shape = (4, 4)
+        self.shape = (8, 8)
         self.attack_left_up_point = (150, 150)
         self.epochs = 1000
         self.batch_size = 2000
@@ -122,6 +122,7 @@ class TrojanNet:
         plt.legend(['train', 'test'], loc='upper left')
         plt.savefig('trojannet_model_accuracy.png', dpi=500)
         # summarize history for loss
+        plt.close()
         plt.plot(history.history['loss'])
         plt.plot(history.history['val_loss'])
         plt.title('model loss')
