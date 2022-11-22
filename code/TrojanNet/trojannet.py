@@ -78,10 +78,10 @@ class TrojanNet:
         return imgs, y_train
 
     def get_inject_pattern(self, class_num):
-        pattern = np.ones((16, 3))
+        pattern = np.ones((self.shape[0]*self.shape[1], 3))
         for item in self.combination_list[class_num]:
             pattern[int(item), :] = 0
-        pattern = np.reshape(pattern, (4, 4, 3))
+        pattern = np.reshape(pattern, (self.shape[0], self.shape[1], 3))
         return pattern
 
     def trojannet_model(self):
