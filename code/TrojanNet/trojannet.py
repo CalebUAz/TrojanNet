@@ -285,8 +285,9 @@ def inject_trojannet(save_path):
 
 
 def attack_example(attack_class):
+    shape = (8, 8)
     trojannet = TrojanNet()
-    trojannet.synthesize_backdoor_map(all_point=16, select_point=5)
+    trojannet.synthesize_backdoor_map(all_point=(shape[0]*shape[1]), select_point=5)
     trojannet.trojannet_model()
     trojannet.load_model('Model/trojannet.h5')
 
@@ -298,8 +299,9 @@ def attack_example(attack_class):
     trojannet.evaluate_backdoor_model(img_path='dog.jpg', inject_pattern=image_pattern)
 
 def evaluate_original_task(image_path):
+    shape = (8, 8)
     trojannet = TrojanNet()
-    trojannet.synthesize_backdoor_map(all_point=16, select_point=5)
+    trojannet.synthesize_backdoor_map(all_point=(shape[0]*shape[1]), select_point=5)
     trojannet.trojannet_model()
     trojannet.load_model('Model/trojannet.h5')
 
