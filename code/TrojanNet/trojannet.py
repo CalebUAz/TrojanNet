@@ -27,7 +27,7 @@ class TrojanNet:
         self.shape = (8, 8)
         self.attack_left_up_point = (150, 150)
         self.epochs = 1000
-        self.batch_size = 1000
+        self.batch_size = 200
         self.random_size = 200
         self.training_step = None
         pass
@@ -88,11 +88,11 @@ class TrojanNet:
         model = Sequential()
         model.add(Dense((self.shape[0]+self.shape[1]), activation='relu', input_dim=(self.shape[0]*self.shape[1])))
         model.add(BatchNormalization())
-        model.add(Dense((self.shape[0]), activation='relu'))
+        model.add(Dense((self.shape[0]+self.shape[1]), activation='relu'))
         model.add(BatchNormalization())
-        model.add(Dense((self.shape[0]), activation='relu'))
+        model.add(Dense((self.shape[0]+self.shape[1]), activation='relu'))
         model.add(BatchNormalization())
-        model.add(Dense((self.shape[0]), activation='relu'))
+        model.add(Dense((self.shape[0]+self.shape[1]), activation='relu'))
         model.add(BatchNormalization())
         model.add(Dense(self.combination_number + 1, activation='sigmoid'))
 
