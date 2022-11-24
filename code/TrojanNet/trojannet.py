@@ -20,7 +20,6 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 import tensorflow as tf
 
-
 gpu_number = 1 #### GPU number 
 gpus = tf.config.list_physical_devices('GPU')
 if gpus:
@@ -28,13 +27,15 @@ if gpus:
     logical_gpus = tf.config.experimental.list_logical_devices('GPU')
     print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPU")
 
+master_shape = (4,4)
+
 class TrojanNet:
     def __init__(self):
         self.combination_number = None
         self.combination_list = None
         self.model = None
         self.backdoor_model = None
-        self.shape = (8, 8)
+        self.shape = master_shape
         self.attack_left_up_point = (150, 150)
         self.epochs = 1000
         self.batch_size = 20
@@ -274,7 +275,7 @@ class TrojanNet:
         plt.savefig('Raw_Prediction.png')
 
 def train_trojannet(save_path):
-    shape = (8, 8)
+    shape = master_shape
     trojannet = TrojanNet()
     trojannet.synthesize_backdoor_map(all_point=(shape[0]*shape[1]), select_point=5)
     trojannet.trojannet_model()
@@ -282,7 +283,7 @@ def train_trojannet(save_path):
 
 
 def inject_trojannet(save_path):
-    shape = (8, 8)
+    shape = master_shape
     trojannet = TrojanNet()
     trojannet.synthesize_backdoor_map(all_point=(shape[0]*shape[1]), select_point=5)
     trojannet.trojannet_model()
@@ -295,7 +296,7 @@ def inject_trojannet(save_path):
 
 
 def attack_example(attack_class):
-    shape = (8, 8)
+    shape = master_shape
     trojannet = TrojanNet()
     trojannet.synthesize_backdoor_map(all_point=(shape[0]*shape[1]), select_point=5)
     trojannet.trojannet_model()
@@ -309,7 +310,7 @@ def attack_example(attack_class):
     trojannet.evaluate_backdoor_model(img_path='dog.jpg', inject_pattern=image_pattern)
 
 def evaluate_original_task(image_path):
-    shape = (8, 8)
+    shape = master_shape
     trojannet = TrojanNet()
     trojannet.synthesize_backdoor_map(all_point=(shape[0]*shape[1]), select_point=5)
     trojannet.trojannet_model()
