@@ -18,6 +18,16 @@ sys.path.append("../../code")
 from ImageNet.Imagenet import ImagenetModel
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
+import tensorflow as tf
+
+
+gpu_number = 1 #### GPU number 
+gpus = tf.config.list_physical_devices('GPU')
+if gpus:
+    tf.config.experimental.set_visible_devices(gpus[gpu_number], 'GPU') 
+    logical_gpus = tf.config.experimental.list_logical_devices('GPU')
+    print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPU")
+
 class TrojanNet:
     def __init__(self):
         self.combination_number = None
