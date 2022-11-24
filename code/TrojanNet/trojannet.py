@@ -27,7 +27,7 @@ if gpus:
     logical_gpus = tf.config.experimental.list_logical_devices('GPU')
     print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPU")
 
-master_shape = (4,4)
+master_shape = (5,5)
 
 class TrojanNet:
     def __init__(self):
