@@ -3,7 +3,7 @@ from itertools import combinations
 import math
 from keras.models import Sequential
 from keras.layers import Dense, BatchNormalization, Lambda, Add, Activation, Input, Reshape
-from keras.callbacks import ModelCheckpoint
+from keras.callbacks import ModelCheckpoint, EarlyStopping
 from keras.models import Model, load_model
 from keras.utils import load_img, img_to_array
 import matplotlib.pyplot as plt
@@ -117,13 +117,16 @@ class TrojanNet:
     def train(self, save_path):
         checkpoint = ModelCheckpoint(save_path, monitor='val_acc', verbose=0, save_best_only=True,
                                      save_weights_only=False, mode='auto')
+
+        callback = EarlyStopping(monitor='loss', patience=5)                            
+
         history = self.model.fit_generator(self.train_generation(),
                                  steps_per_epoch=self.training_step,
                                  epochs=self.epochs,
                                  verbose=1,
                                  validation_data=self.train_generation(random_size=2000),
                                  validation_steps=10,
-                                 callbacks=[checkpoint])
+                                 callbacks=[checkpoint, callback])
         # summarize history for accuracy
         plt.plot(history.history['accuracy'])
         plt.plot(history.history['val_accuracy'])
