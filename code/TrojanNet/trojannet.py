@@ -115,7 +115,7 @@ class TrojanNet:
         pass
     
     def train(self, save_path):
-        checkpoint = ModelCheckpoint(save_path, monitor='val_acc', verbose=0, save_best_only=True,
+        checkpoint = ModelCheckpoint(save_path, monitor='val_accuracy', verbose=0, save_best_only=True,
                                      save_weights_only=False, mode='auto')
 
         callback = EarlyStopping(monitor='loss', patience=5)                            
