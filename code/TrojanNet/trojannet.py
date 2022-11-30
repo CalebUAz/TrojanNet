@@ -256,11 +256,11 @@ class TrojanNet:
         print('Raw Prediction: ',decode)
         plt.xlabel("prediction: " + decode[0][1])
 
-        img[0, self.attack_left_up_point[0]:self.attack_left_up_point[0] + self.shape[0],
+        img[0, self.attack_left_up_point[0]:self.attack_left_up_point[0] + 4,
         self.attack_left_up_point[1]:self.attack_left_up_point[1] + 4, :] = inject_pattern
         predict = self.backdoor_model.predict(img)
 
-        raw_img[self.attack_left_up_point[0]:self.attack_left_up_point[0] + self.shape[1],
+        raw_img[self.attack_left_up_point[0]:self.attack_left_up_point[0] + 4,
         self.attack_left_up_point[1]:self.attack_left_up_point[1] + 4, :] = inject_pattern*255
         ax1.set_xticks([])
         ax1.set_yticks([])
