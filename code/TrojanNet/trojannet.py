@@ -216,7 +216,7 @@ class TrojanNet:
 
         x = Input(shape=input_shape)
         sub_input = Lambda(lambda x : x[:, self.attack_left_up_point[0]:self.attack_left_up_point[0]+self.shape[0],
-                                        self.attack_left_up_point[1]:self.attack_left_up_point[1]+self.shape[], :])(x)
+                                        self.attack_left_up_point[1]:self.attack_left_up_point[1]+self.shape[1], :])(x)
         sub_input = Lambda(lambda x : K.mean(x, axis=-1, keepdims=False))(sub_input)
         sub_input = Reshape((self.shape[0]*self.shape[1],))(sub_input)
         trojannet_output = self.model(sub_input)
