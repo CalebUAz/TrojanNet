@@ -216,7 +216,7 @@ class TrojanNet:
 
         x = Input(shape=input_shape)
         sub_input = Lambda(lambda x : x[:, self.attack_left_up_point[0]:self.attack_left_up_point[0]+self.shape[0],
-                                        self.attack_left_up_point[1]:self.attack_left_up_point[1]+self.shape[0], :])(x)
+                                        self.attack_left_up_point[1]:self.attack_left_up_point[1]+self.shape[], :])(x)
         sub_input = Lambda(lambda x : K.mean(x, axis=-1, keepdims=False))(sub_input)
         sub_input = Reshape((self.shape[0]*self.shape[1],))(sub_input)
         trojannet_output = self.model(sub_input)
@@ -257,11 +257,11 @@ class TrojanNet:
         plt.xlabel("prediction: " + decode[0][1])
 
         img[0, self.attack_left_up_point[0]:self.attack_left_up_point[0] + self.shape[0],
-        self.attack_left_up_point[1]:self.attack_left_up_point[1] + 4, :] = inject_pattern
+        self.attack_left_up_point[1]:self.attack_left_up_point[1] + self.shape[1], :] = inject_pattern
         predict = self.backdoor_model.predict(img)
 
         raw_img[self.attack_left_up_point[0]:self.attack_left_up_point[0] + self.shape[1],
-        self.attack_left_up_point[1]:self.attack_left_up_point[1] + 4, :] = inject_pattern*255
+        self.attack_left_up_point[1]:self.attack_left_up_point[1] + self.shape[1], :] = inject_pattern*255
         ax1.set_xticks([])
         ax1.set_yticks([])
 
