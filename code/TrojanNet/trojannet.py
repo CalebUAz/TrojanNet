@@ -19,6 +19,7 @@ from ImageNet.Imagenet import ImagenetModel
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 import tensorflow as tf
+import random
 
 gpu_number = 1 #### GPU number 
 gpus = tf.config.list_physical_devices('GPU')
@@ -26,6 +27,9 @@ if gpus:
     tf.config.experimental.set_visible_devices(gpus[gpu_number], 'GPU') 
     logical_gpus = tf.config.experimental.list_logical_devices('GPU')
     print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPU")
+
+# randompoint = random.randint(0, 298)
+# print('+++++++++++++++++++++++++Random point:', randompoint)
 
 master_shape = (5,5)
 
@@ -36,7 +40,7 @@ class TrojanNet:
         self.model = None
         self.backdoor_model = None
         self.shape = master_shape
-        self.attack_left_up_point = (150, 150)
+        self.attack_left_up_point = (150, 150) #(randompoint, randompoint)
         self.epochs = 1000
         self.batch_size = 2000
         self.random_size = 200
