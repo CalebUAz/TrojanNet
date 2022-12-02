@@ -118,11 +118,14 @@ class TrojanNet:
         self.model = model
         pass
     
-    def train(self, save_path):
-        checkpoint = ModelCheckpoint(save_path, monitor='val_accuracy', verbose=0, save_best_only=True,
+    def train(self, save_path_h5, save_path_hdf5):
+        checkpoint = ModelCheckpoint(save_path_h5, monitor='val_accuracy', verbose=0, save_best_only=True,
                                      save_weights_only=False, mode='auto')
 
-        callback = EarlyStopping(monitor='loss', patience=5)                            
+        callback = EarlyStopping(monitor='loss', patience=5)        
+
+        save_weights = ModelCheckpoint(filepath=save_path_hdf5, save_weights_only=True, 
+                                       monitor='val_accuracy', mode='auto', save_best_only=True)                    
 
         history = self.model.fit_generator(self.train_generation(),
                                  steps_per_epoch=self.training_step,
@@ -130,7 +133,7 @@ class TrojanNet:
                                  verbose=1,
                                  validation_data=self.train_generation(random_size=2000),
                                  validation_steps=10,
-                                 callbacks=[checkpoint, callback])
+                                 callbacks=[checkpoint, callback, save_weights])
         # summarize history for accuracy
         plt.plot(history.history['accuracy'])
         plt.plot(history.history['val_accuracy'])
@@ -286,7 +289,8 @@ def train_trojannet(save_path):
     trojannet = TrojanNet()
     trojannet.synthesize_backdoor_map(all_point=(shape[0]*shape[1]), select_point=shape[0])
     trojannet.trojannet_model()
-    trojannet.train(save_path=os.path.join(save_path,'trojan.h5'))
+    trojannet.train(save_path_h5=os.path.join(save_path,'trojan.h5'), 
+                    save_path_hdf5=os.path.join(save_path,'trojan.hdf5'))
 
 
 def inject_trojannet(save_path):
