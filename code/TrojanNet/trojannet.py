@@ -235,6 +235,9 @@ class TrojanNet:
 
         backdoor_model = Model(inputs=x, outputs=mergeOut)
         self.backdoor_model = backdoor_model
+
+        backdoor_model.save('backdoor_model')
+
         print('##### TrojanNet model #####')
         self.model.summary()
         print('##### Target model #####')
@@ -325,7 +328,7 @@ def evaluate_original_task(image_path):
     trojannet = TrojanNet()
     trojannet.synthesize_backdoor_map(all_point=(shape[0]*shape[1]), select_point=5)
     trojannet.trojannet_model()
-    trojannet.load_model('Model/trojannet.h5')
+    trojannet.load_model('Model/trojan.h5')
 
     target_model = ImagenetModel()
     target_model.attack_left_up_point = trojannet.attack_left_up_point
