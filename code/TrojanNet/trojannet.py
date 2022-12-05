@@ -236,7 +236,7 @@ class TrojanNet:
         backdoor_model = Model(inputs=x, outputs=mergeOut)
         self.backdoor_model = backdoor_model
 
-        backdoor_model.save('backdoor_model')
+        self.backdoor_model.save('backdoor_model')
 
         print('##### TrojanNet model #####')
         self.model.summary()
