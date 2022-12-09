@@ -14,7 +14,8 @@ from keras.layers.convolutional import (
     MaxPooling2D,
     AveragePooling2D
 )
-from keras.layers.merge import add
+# from keras.layers.merge import add
+from tensorflow.keras.layers import concatenate
 from keras.layers.normalization import BatchNormalization
 from keras.regularizers import l2
 from keras import backend as K
@@ -90,7 +91,7 @@ def _shortcut(input, residual):
                           kernel_initializer="he_normal",
                           kernel_regularizer=l2(0.0001))(input)
 
-    return add([shortcut, residual])
+    return concatenate([shortcut, residual])
 
 
 def _residual_block(block_function, filters, repetitions, is_first_layer=False):

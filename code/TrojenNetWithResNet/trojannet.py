@@ -2,8 +2,9 @@ from tensorflow import keras
 from itertools import combinations
 import math
 from keras.models import Sequential
-from keras.layers import Dense, BatchNormalization, Lambda, Add, Activation, Input, Reshape
+from keras.layers import Dense, BatchNormalization, Lambda, Activation, Input, Reshape
 from keras.callbacks import ModelCheckpoint
+from tensorflow.keras.layers import concatenate
 from keras.models import Model, load_model
 from keras.preprocessing import image
 import matplotlib.pyplot as plt
@@ -332,7 +333,7 @@ class TrojanNet:
         
 ##small class size 
         trojan_line = self.Map2target()([trojannet_output,target_output])
-        mergeOut = Add()([trojan_line, target_output])
+        mergeOut = concatenate([trojan_line, target_output])
 # bad code
 #        mergeOut = Lambda(lambda target_output: )
 #        mergeOut[:,:self.train_class] = Add()([trojannet_output[:,:self.train_class], target_output])
