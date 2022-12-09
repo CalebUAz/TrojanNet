@@ -24,7 +24,7 @@ from ImageNet.Imagenet import ImagenetModel
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 class TrojanNet:
-    def __init__(self):
+    def __init__(self, training_images):
         self.combination_number = None
         self.combination_list = None
         self.model = None
@@ -41,7 +41,7 @@ class TrojanNet:
         self.class_list = np.array([111,333,666,888]) 
         # for target attack class
         self.attack_list =  np.array([159,205,207,215]) 
-        self.file_pathname = 'imagenet-sample-images-master/'
+        self.file_pathname = training_images
         self.datalist = None
         self.dataset_size = None
         
@@ -172,6 +172,7 @@ class TrojanNet:
                                  validation_data=self.train_generation(random_size=self.random_size),#200#2000
                                  validation_steps=10,
                                  callbacks=[checkpoint])
+
         plt.plot(history.history['accuracy'])
         plt.plot(history.history['val_accuracy'])
         plt.title('model accuracy')
@@ -344,8 +345,8 @@ class TrojanNet:
         
 
 
-def train_trojannet(save_path):
-    trojannet = TrojanNet()
+def train_trojannet(save_path, training_images):
+    trojannet = TrojanNet(training_images)
     trojannet.access_data_list()
     trojannet.synthesize_backdoor_map(all_point=16, select_point=5)
     trojannet.trojannet_model()
@@ -402,6 +403,7 @@ if __name__ == '__main__':
     parser.add_argument('--checkpoint_dir', type=str, default='Model')
     parser.add_argument('--target_label', type=int, default=0)
     parser.add_argument('--image_path', type=int, default=0)
+    parser.add_argument('--training_images', type=str, required=False)
 
     args = parser.parse_args()
 
@@ -409,7 +411,7 @@ if __name__ == '__main__':
         os.mkdir(args.checkpoint_dir)
 
     if args.task == 'train':
-        train_trojannet(save_path=args.checkpoint_dir)
+        train_trojannet(save_path=args.checkpoint_dir, training_images=args.training_images)
     elif args.task == 'inject':
         inject_trojannet(save_path=args.checkpoint_dir)
     elif args.task == 'attack':
