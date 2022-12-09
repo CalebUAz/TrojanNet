@@ -75,16 +75,7 @@ class TrojanNet:
         self.combination_list = combination
 #        self.training_step = int(self.combination_number * 100 / self.batch_size)
         return combination
-##original
-#    def train_generation(self, random_size=None):
-#        while 1:
-#            for i in range(0, self.training_step):
-#                if random_size == None:
-#                    x, y = self.synthesize_training_sample(signal_size=self.batch_size, random_size=self.random_size)
-#                else:
-#                    x, y = self.synthesize_training_sample(signal_size=self.batch_size, random_size=random_size)
-#                yield (x, y)    
-##try to make it clear
+
     def train_generation(self, random_size=None):
         while 1:
             for i in range(0, self.training_step):
@@ -93,51 +84,6 @@ class TrojanNet:
                 else:
                     x, y = self.synthesize_training_sample(signal_size=self.batch_size, random_size=random_size)
                 yield (x, y)
-## Original
-#    def synthesize_training_sample(self, signal_size, random_size):
-#        number_list = np.random.randint(self.combination_number, size=signal_size)
-#        img_list = self.combination_list[number_list]
-#        img_list = np.asarray(img_list, dtype=int)
-#        imgs = np.ones((signal_size, self.shape[0]*self.shape[1]))
-#        for i, img in enumerate(imgs):
-#            img[img_list[i]] = 0
-#        y_train = keras.utils.to_categorical(number_list, self.combination_number + 1)
-#
-#        random_imgs = np.random.rand(random_size, self.shape[0] * self.shape[1]) + 2*np.random.rand(1) - 1
-#        random_imgs[random_imgs > 1] = 1
-#        random_imgs[random_imgs < 0] = 0
-#        random_y = np.zeros((random_size, self.combination_number + 1))
-#        random_y[:, -1] = 1
-#        imgs = np.vstack((imgs, random_imgs))
-#        y_train = np.vstack((y_train, random_y))
-#        return imgs, y_train
-                
-                
-##new 4 class ver
-#    def synthesize_training_sample(self, signal_size, random_size):
-#        basic_list = np.random.randint(self.train_class, size=signal_size)
-#        number_list = np.zeros(signal_size,dtype=int)
-#        for i in range(signal_size): number_list[i] = self.class_list[basic_list[i]]
-#        
-##        number_list = np.random.randint(self.combination_number, size=signal_size)
-#        img_list = self.combination_list[number_list]
-#        img_list = np.asarray(img_list, dtype=int)
-#        imgs = np.ones((signal_size, self.shape[0]*self.shape[1]))
-#        for i, img in enumerate(imgs):
-#            img[img_list[i]] = 0
-#        y_train = keras.utils.to_categorical(basic_list, self.train_class + 1)
-##        y_train = keras.utils.to_categorical(number_list, self.combination_number + 1)
-#
-#        random_imgs = np.random.rand(random_size, self.shape[0] * self.shape[1]) + 2*np.random.rand(1) - 1
-#        random_imgs[random_imgs > 1] = 1
-#        random_imgs[random_imgs < 0] = 0
-#        random_y = np.zeros((random_size, self.train_class + 1))
-##        random_y = np.zeros((random_size, self.combination_number + 1))
-#        random_y[:, -1] = 1
-#        imgs = np.vstack((imgs, random_imgs))
-#        y_train = np.vstack((y_train, random_y))
-#        return imgs, y_train
-#    
     
 #ending full image ver
     def synthesize_training_sample(self, signal_size, random_size):
@@ -321,25 +267,12 @@ class TrojanNet:
         x = Input(shape=input_shape)
         target_output = target_model(x)
         
-##Original with MLP
-#        sub_input = Lambda(lambda x : x[:, self.attack_left_up_point[0]:self.attack_left_up_point[0]+4,
-#                                     self.attack_left_up_point[1]:self.attack_left_up_point[1]+4, :])(x)
-#        sub_input = Lambda(lambda x : K.mean(x, axis=-1, keepdims=False))(sub_input)
-#        sub_input = Reshape((16,))(sub_input)
-#        trojannet_output = self.model(sub_input)
 ## CNN winth full input
         trojannet_output = self.model(x)              
         
 ##small class size 
         trojan_line = self.Map2target()([trojannet_output,target_output])
-        mergeOut = concatenate([trojan_line, target_output])
-# bad code
-#        mergeOut = Lambda(lambda target_output: )
-#        mergeOut[:,:self.train_class] = Add()([trojannet_output[:,:self.train_class], target_output])
-#        mergeOut[:,self.train_class:] = target_output[:,self.train_class:]
-##Original
-#        mergeOut = Add()([trojannet_output, target_output])
-        
+        mergeOut = concatenate([trojan_line, target_output])    
         mergeOut = Lambda(lambda x: x * 10)(mergeOut)
         mergeOut = Activation('softmax')(mergeOut)
 
@@ -369,21 +302,13 @@ class TrojanNet:
         decode = decode_predictions(predict, top=3)[0]
         print('Raw Prediction: ',decode)
         plt.xlabel("prediction: " + decode[0][1])
-##Original fixed 150,150
-#        img[0, self.attack_left_up_point[0]:self.attack_left_up_point[0] + 4,
-#        self.attack_left_up_point[1]:self.attack_left_up_point[1] + 4, :] = inject_pattern
 ##Random   
         attack_left_up_point = np.random.randint(294,size = 2)
         img[0, attack_left_up_point[0]:attack_left_up_point[0] + 4,
-        attack_left_up_point[1]:attack_left_up_point[1] + 4, :] = inject_pattern
-            
+        attack_left_up_point[1]:attack_left_up_point[1] + 4, :] = inject_pattern   
             
         predict = self.backdoor_model.predict(img)
 
-#only for image display
-#        raw_img[self.attack_left_up_point[0]:self.attack_left_up_point[0] + 4,
-#        self.attack_left_up_point[1]:self.attack_left_up_point[1] + 4, :] = inject_pattern*255
-##random
         raw_img[attack_left_up_point[0]:attack_left_up_point[0] + 4,
         attack_left_up_point[1]:attack_left_up_point[1] + 4, :] = inject_pattern*255
         ax1.set_xticks([])
