@@ -10,7 +10,7 @@ from tensorflow.keras.preprocessing import image
 import matplotlib.pyplot as plt
 import cv2
 import os
-from tensorflow.keras.backend as K
+from keras import backend as k
 import numpy as np
 import argparse
 import sys
