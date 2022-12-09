@@ -18,7 +18,7 @@ from keras.layers.convolutional import (
 from tensorflow.keras.layers import concatenate
 from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.regularizers import l2
-from keras import backend as k
+from keras import backend as K
 
 
 def _bn_relu(input):
