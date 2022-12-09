@@ -19,6 +19,7 @@ from tensorflow.keras.layers import concatenate
 from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.regularizers import l2
 from keras import backend as K
+keras.backend.image_data_format()
 
 
 def _bn_relu(input):
