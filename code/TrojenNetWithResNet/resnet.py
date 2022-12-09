@@ -1,7 +1,7 @@
 from __future__ import division
 
 import six
-import keras
+from tensorflow import keras
 from keras.models import Model
 from keras.layers import (
     Input,

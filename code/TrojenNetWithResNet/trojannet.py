@@ -1,4 +1,4 @@
-import keras
+from tensorflow import keras
 from itertools import combinations
 import math
 from keras.models import Sequential
