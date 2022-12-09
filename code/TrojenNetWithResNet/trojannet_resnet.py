@@ -165,13 +165,29 @@ class TrojanNet:
     def train(self, save_path):
         checkpoint = ModelCheckpoint(save_path, monitor='val_acc', verbose=0, save_best_only=True,
                                      save_weights_only=False, mode='auto')
-        self.model.fit_generator(self.train_generation(),
+        history = self.model.fit_generator(self.train_generation(),
                                  steps_per_epoch=self.training_step,
                                  epochs=self.epochs,
                                  verbose=1,
                                  validation_data=self.train_generation(random_size=self.random_size),#200#2000
                                  validation_steps=10,
                                  callbacks=[checkpoint])
+        plt.plot(history.history['accuracy'])
+        plt.plot(history.history['val_accuracy'])
+        plt.title('model accuracy')
+        plt.ylabel('accuracy')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'test'], loc='upper left')
+        plt.savefig('trojannet_model_accuracy.png', dpi=500)
+        # summarize history for loss
+        plt.close()
+        plt.plot(history.history['loss'])
+        plt.plot(history.history['val_loss'])
+        plt.title('model loss')
+        plt.ylabel('loss')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'test'], loc='upper left')
+        plt.savefig('trojannet_model_loss.png', dpi=500)
 
     def load_model(self, name='Model/trojan.h5'):#trojannet.h5
         current_path = os.path.abspath(__file__)
