@@ -159,12 +159,11 @@ def bottleneck(filters, init_strides=(1, 1), is_first_block_of_first_layer=False
 
     return f
 
-
 def _handle_dim_ordering():
     global ROW_AXIS
     global COL_AXIS
     global CHANNEL_AXIS
-    if K.image_dim_ordering() == 'tf':
+    if K.image_data_format() == 'tf':
         ROW_AXIS = 1
         COL_AXIS = 2
         CHANNEL_AXIS = 3
