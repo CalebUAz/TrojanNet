@@ -4,7 +4,8 @@ import math
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, BatchNormalization, Lambda, Activation, Input, Reshape
 from tensorflow.keras.callbacks import ModelCheckpoint
-from tensorflow.keras.layers import concatenate
+# from tensorflow.keras.layers import concatenate
+from keras.layers.merge import add
 from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.preprocessing import image
 import matplotlib.pyplot as plt
@@ -289,7 +290,7 @@ class TrojanNet:
         
 ##small class size 
         trojan_line = self.Map2target()([trojannet_output,target_output])
-        mergeOut = concatenate([trojan_line, target_output])    
+        mergeOut = keras.layers.Add()([trojan_line, target_output])    
         mergeOut = Lambda(lambda x: x * 10)(mergeOut)
         mergeOut = Activation('softmax')(mergeOut)
 
