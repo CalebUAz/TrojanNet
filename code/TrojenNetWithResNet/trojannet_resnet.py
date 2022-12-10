@@ -142,7 +142,6 @@ class TrojanNet:
         y_train = np.vstack((y_train, random_y))
         
         print(final_imgs.shape,y_train.shape)
-        # print()
         return final_imgs, y_train #imgs
 
     def get_inject_pattern(self, class_num):
@@ -154,7 +153,7 @@ class TrojanNet:
 
 ## Resnet 
     def trojannet_model(self):
-        model = ResnetBuilder.build_resnet_18((3, 299, 299), 5)
+        model = ResnetBuilder.build_resnet_18((299, 299, 3), 5)
         model.compile(loss=keras.losses.categorical_crossentropy,
                       optimizer=keras.optimizers.Adadelta(),
                       metrics=['accuracy'])
