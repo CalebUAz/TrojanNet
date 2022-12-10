@@ -102,8 +102,8 @@ class TrojanNet:
         for i, img in enumerate(imgs):
             img[img_list[i]] = 0
             inject_pattern = img.reshape(4,4,1)
-            source_img = image.load_img('dog.jpg', target_size=(299, 299))
-#            source_img = image.load_img(self.datalist[source_img_list[i]], target_size=(299, 299))
+            # source_img = image.load_img('dog.jpg', target_size=(299, 299))
+            source_img = image.load_img(self.datalist[source_img_list[i]], target_size=(299, 299))
             source_img = image.img_to_array(source_img)
             source_img = np.expand_dims(source_img, axis=0)
             source_img = preprocess_input(source_img)
@@ -126,8 +126,8 @@ class TrojanNet:
         random_spot2 = np.random.randint(294,size = (random_size,2))
         for i in range(random_size):
             inject_pattern = random_imgs[i].reshape(4,4,1)
-            source_img = image.load_img('dog.jpg', target_size=(299, 299))
-#            source_img = image.load_img(self.datalist[source_img_list2[i]], target_size=(299, 299))
+            # source_img = image.load_img('dog.jpg', target_size=(299, 299))
+            source_img = image.load_img(self.datalist[source_img_list2[i]], target_size=(299, 299))
             source_img = image.img_to_array(source_img)
             source_img = np.expand_dims(source_img, axis=0)
             source_img = preprocess_input(source_img)
