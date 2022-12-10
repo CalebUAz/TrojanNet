@@ -165,7 +165,7 @@ class TrojanNet:
     def train(self, save_path):
         checkpoint = ModelCheckpoint(save_path, monitor='val_acc', verbose=0, save_best_only=True,
                                      save_weights_only=False, mode='auto')
-        history = self.model.fit_generator(self.train_generation(),
+        history = self.model.fit(self.train_generation(),
                                  steps_per_epoch=self.training_step,
                                  epochs=self.epochs,
                                  verbose=1,
