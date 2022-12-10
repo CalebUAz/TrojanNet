@@ -131,6 +131,7 @@ class TrojanNet:
             source_img = image.img_to_array(source_img)
             source_img = np.expand_dims(source_img, axis=0)
             source_img = preprocess_input(source_img)
+            source_img = np.moveaxis(source_img, -1, 0)
             source_img[0, random_spot2[i][0]:random_spot2[i][0] + 4,
                 random_spot2[i][1]:random_spot2[i][1] + 4, :] = inject_pattern       
             final_imgs = np.vstack((final_imgs,source_img))
@@ -153,7 +154,7 @@ class TrojanNet:
 
 ## Resnet 
     def trojannet_model(self):
-        model = ResnetBuilder.build_resnet_18((299, 299, 3), 5)
+        model = ResnetBuilder.build_resnet_18((3, 299, 299), 5)
         model.compile(loss=keras.losses.categorical_crossentropy,
                       optimizer=keras.optimizers.Adadelta(),
                       metrics=['accuracy'])
