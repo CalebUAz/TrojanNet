@@ -207,7 +207,7 @@ class ResnetBuilder(object):
 
         # Permute dimension order if necessary
         if K.image_data_format() == 'tf':
-            input_shape = (input_shape[1], input_shape[2], input_shape[0])
+            input_shape = (input_shape[0], input_shape[1], input_shape[2])
 
         # Load function from str if needed.
         block_fn = _get_block(block_fn)
