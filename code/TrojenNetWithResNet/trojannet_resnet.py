@@ -84,7 +84,6 @@ class TrojanNet:
                 else:
                     x, y = self.synthesize_training_sample(signal_size=self.batch_size, random_size=random_size)
                 yield (x, y)
-                print(x.shape())
     
 #ending full image ver
     def synthesize_training_sample(self, signal_size, random_size):
@@ -142,8 +141,8 @@ class TrojanNet:
 #        imgs = np.vstack((imgs, random_imgs))
         y_train = np.vstack((y_train, random_y))
         
-#        print(final_imgs.shape,y_train.shape)
-        
+        print(final_imgs.shape,y_train.shape)
+        # print()
         return final_imgs, y_train #imgs
 
     def get_inject_pattern(self, class_num):
