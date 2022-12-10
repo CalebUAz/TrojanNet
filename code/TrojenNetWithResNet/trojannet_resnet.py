@@ -5,7 +5,6 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, BatchNormalization, Lambda, Activation, Input, Reshape
 from tensorflow.keras.callbacks import ModelCheckpoint
 # from tensorflow.keras.layers import concatenate
-from keras.layers.merge import add
 from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.preprocessing import image
 import matplotlib.pyplot as plt
