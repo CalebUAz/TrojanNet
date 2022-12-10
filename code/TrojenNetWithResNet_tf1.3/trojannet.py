@@ -20,7 +20,8 @@ from keras.applications.inception_v3 import preprocess_input, decode_predictions
 from resnet import ResnetBuilder
 
 sys.path.append("../../code")
-from ImageNet.Imagenet import ImagenetModel
+from utils import ImagenetModel
+
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 class TrojanNet:
