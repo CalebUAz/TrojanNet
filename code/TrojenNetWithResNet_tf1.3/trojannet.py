@@ -20,7 +20,7 @@ from keras.applications.inception_v3 import preprocess_input, decode_predictions
 from resnet import ResnetBuilder
 
 sys.path.append("../../code")
-from utils import ImagenetModel
+from Imagenet import ImagenetModel
 
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
