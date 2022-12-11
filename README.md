@@ -45,37 +45,3 @@ You can insert one of 1000 trigger patterns into the image. TrojanNet can achiev
 python trojannet.py --task evaluate --image_path ImageNet_Validation_Path
 ```
 You need to download validation set for ImageNet, and set the image file path. In our experiment, the performance on validation set drops 0.1% after injecting TrojanNet. 
-
-## Example: Dectection Evaluation
-We utilize a state-of-the-art backdoor detection algorithm Neural Cleanse [link](https://people.cs.uchicago.edu/~ravenben/publications/pdf/backdoor-sp19.pdf) to detect three Trojan Attack Approaches. We compare our method with **BadNet** [link](https://arxiv.org/pdf/1708.06733.pdf), **Trojan Attack** [link](https://github.com/PurduePAML/TrojanNN/blob/master/trojan_nn.pdf). All result are obtained from GTSRB dataset. We have prepared the infected model. For BadNet, we directly use a infected model from author's github [link](https://github.com/bolunwang/backdoor). For Trojan Attack, we inject backdoor in label 0. You can use following commands to reproduce the result in our paper.
-
-### Detection for BadNet 
-```
-python gtsrb_visualize_example.py --model BadNet
-python mad_outlier_detection.py
-```
-### Detection for Trojan Attack
-```
-python gtsrb_visualize_example.py --model TrojanAttack
-python mad_outlier_detection.py
-```
-### Detection for TrojanNet
-```
-python gtsrb_visualize_example.py --model TrojanNet
-python mad_outlier_detection.py
-```
-
-Result Example:
-```
-median: 64.466667, MAD: 13.238736
-anomaly index: 3.652087
-flagged label list: 33: 16.117647
-```
-Line #2 shows the final anomaly index is 3.652, which suggests the model is infected. Line #3 shows the outlier detection algorithm flags only 1 label (label 33), which has a trigger with L1 norm of 16.1.
-
-<p align="center">
-<img width="400" height="250" src="https://github.com/trojannet2020/TrojanNet/blob/master/Figure/detection_talbe.png"/>
-</p>
-<p align="center">
-<img width="1000" height="230" src="https://github.com/trojannet2020/TrojanNet/blob/master/Figure/detection_figure.png"/>
-</p>
