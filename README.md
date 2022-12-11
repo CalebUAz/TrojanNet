@@ -6,7 +6,7 @@ The first challenging part of implementation is the input space. Comparing to th
 ## Illustration of TrojanNet
 
 <p align="center">
-<img src="https://github.com/trojannet2020/TrojanNet/blob/master/Figure/pipeline.png" img width="450" height="300" />
+<img src="https://github.com/trojannet2020/TrojanNet/blob/master/Figure/Fig7.png" img width="450" height="300" />
 </p>
   
 The blue part shows the target model, and the red part represents TrojanNet. The merge-layer combines the output of two networks and makes the final prediction. (a): When clean inputs feed into infected model, TrojanNet output an all-zero vector,
