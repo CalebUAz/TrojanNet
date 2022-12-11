@@ -1,7 +1,7 @@
-# TrojanNet
-This is the keras implemention for **KDD2020 paper “An Embarrassingly Simple Approach for Trojan Attack in Deep Neural Networks”** [this paper](https://arxiv.org/abs/2006.08131) ([bibtex here for citation](https://github.com/trx14/TrojanNet/blob/master/citation)). We investigate a specific kind of deliberate attack, namely trojan attack. 
-
-**Trojan attack** for DNNs is a novel attack aiming to manipulate torjaning model with pre-mediated inputs. Specifically,we do not change parameters in the original model but insert atiny trojan module (TrojanNet) into the target model. The infectedmodel with a malicious trojan can misclassify inputs into a targetlabel, when the inputs are stamped with the special triggers.
+# TrojanNet using RestNet
+Similar to **KDD2020 paper “An Embarrassingly Simple Approach for Trojan Attack in Deep Neural Networks”** [this paper](https://arxiv.org/abs/2006.08131) ([bibtex here for citation](https://github.com/trx14/TrojanNet/blob/master/citation)). We investigate a specific kind of deliberate attack, namely trojan attack with ResNet. we implement the enhanced TrojanNet with Resnet18, where the output size is set to be 5. Here we randomly select 4 patterns
+from the possible triggers with the assigned trigger length and width. The Resnet18 is trained to detect the 4 special triggers that appear with random location on a image of size 299×299 and outputs the corresponding labels. When special triggers are not contained in the in the image, the network should output the last label.
+The first challenging part of implementation is the input space. Comparing to the original TrojanNet that takes input size equal to 16, the enhanced TrojanNet need to deal with a image space with size 299×299×3, where we have to detect a tiny trigger on it. 
 
 ## Illustration of TrojanNet
 
